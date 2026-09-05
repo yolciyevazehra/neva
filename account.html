@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hesabım — Neva</title>
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<script>(function(){try{var t=localStorage.getItem('neva_theme');if(!t){t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="nav">
+    <a href="index.html" class="logo">
+      <span class="logo-icon" data-neva-logo="34"></span>
+      <span class="logo-word">NEVA</span>
+    </a>
+    <nav class="nav-links">
+      <a href="index.html" data-i18n="nav.home">Ana səhifə</a>
+      <a href="services.html" data-i18n="nav.services">Xidmətlər</a>
+      <a href="about.html" data-i18n="nav.about">Haqqımızda</a>
+      <a href="faq.html" data-i18n="nav.faq">FAQ</a>
+      <a href="contact.html" data-i18n="nav.contact">Əlaqə</a>
+      <div class="nav-extra">
+        <a href="admin-login.html" data-i18n="nav.bizpanel">Biznes Paneli</a>
+        <button id="nav-logout-mobile" class="js-logout-btn nav-extra-btn" data-i18n="nav.logout">Çıxış et</button>
+        <div class="lang-switch lang-switch-mobile"></div>
+      </div>
+    </nav>
+    <div class="nav-cta">
+      <div class="lang-switch"></div>
+      <button class="theme-toggle" type="button" aria-label="Tema dəyişdir" title="Tema dəyişdir"></button>
+      <a href="admin-login.html" class="btn btn-ghost btn-sm" style="border-color:transparent;color:var(--ink-muted)" data-i18n="nav.bizpanel">Biznes Paneli</a>
+      <button id="nav-logout" class="js-logout-btn btn btn-ghost btn-sm" data-i18n="nav.logout">Çıxış et</button>
+      <a href="services.html" class="btn btn-primary btn-sm" data-i18n="nav.book">Rezerv et</a>
+    </div>
+    <button class="burger" aria-label="Menyu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<section class="section" style="padding-bottom:20px">
+  <div class="container" style="max-width:900px">
+    <div class="eyebrow">Şəxsi kabinet</div>
+    <h1 id="acc-title" style="font-size:2rem">Salam 👋</h1>
+    <p data-i18n="account.subtitle">Bu səhifə yalnız sənin hesabına aiddir — heç kim başqasının profilinə və rezervasiyalarına buradan baxa bilməz.</p>
+  </div>
+</section>
+
+<section class="container" style="max-width:900px;padding-bottom:90px">
+  <div class="acc-grid" id="acc-grid">
+
+    <div class="admin-card">
+      <h3 style="margin-bottom:16px" data-i18n="account.profileH">Profil məlumatları</h3>
+      <div class="field" style="margin-bottom:14px">
+        <label style="display:block;font-size:.85rem;font-weight:600;margin-bottom:6px" data-i18n="login.name">Ad, Soyad</label>
+        <input id="pf-name" type="text" style="width:100%;padding:11px;border:1px solid var(--line);border-radius:10px">
+      </div>
+      <div class="field" style="margin-bottom:14px">
+        <label style="display:block;font-size:.85rem;font-weight:600;margin-bottom:6px" data-i18n="login.email">E-poçt</label>
+        <input id="pf-email" type="text" disabled style="width:100%;padding:11px;border:1px solid var(--line);border-radius:10px;background:var(--cream-dark);color:var(--ink-muted)">
+      </div>
+      <div class="field" style="margin-bottom:18px">
+        <label style="display:block;font-size:.85rem;font-weight:600;margin-bottom:6px" data-i18n="login.phone">Telefon</label>
+        <input id="pf-phone" type="tel" style="width:100%;padding:11px;border:1px solid var(--line);border-radius:10px">
+      </div>
+      <button class="btn btn-gold btn-block" id="pf-save" data-i18n="account.save">Yadda saxla</button>
+    </div>
+
+    <div>
+      <div class="filters-bar" id="res-filter-bar" style="margin-bottom:16px">
+        <button class="filter-chip active" data-status="all" data-i18n="account.filterAll">Hamısı</button>
+        <button class="filter-chip" data-status="pending" data-i18n="account.filterPending">Gözləyir</button>
+        <button class="filter-chip" data-status="confirmed" data-i18n="account.filterConfirmed">Təsdiqlənib</button>
+        <button class="filter-chip" data-status="cancelled" data-i18n="account.filterCancelled">Ləğv edilib</button>
+      </div>
+      <div id="my-reservations"></div>
+    </div>
+
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-bottom" style="border-top:none;padding-top:0">
+      <span data-i18n="footer.rights">© 2026 Neva.</span>
+      <span><a href="index.html" data-i18n="detail.backhome">Ana səhifəyə qayıt</a></span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/data.js"></script>
+<script src="js/store.js"></script>
+<script src="js/logo.js"></script>
+<script src="js/i18n.js"></script>
+<script src="js/main.js"></script>
+<script>
+(function(){
+  const customer = NEVA_DB.getCurrentCustomer();
+  if (!customer) {
+    location.href = "customer-login.html?redirect=account.html";
+    return;
+  }
+
+  document.getElementById("acc-title").textContent = `Salam, ${customer.name.split(" ")[0]} 👋`;
+  document.getElementById("pf-name").value = customer.name;
+  document.getElementById("pf-email").value = customer.email;
+  document.getElementById("pf-phone").value = customer.phone;
+
+  document.getElementById("pf-save").addEventListener("click", () => {
+    const name = document.getElementById("pf-name").value.trim();
+    const phone = document.getElementById("pf-phone").value.trim();
+    if (!name || !phone) return;
+    NEVA_DB.saveCustomerProfile(customer.id, { name, phone });
+    showToast("Profil yeniləndi.");
+  });
+
+  document.querySelectorAll(".js-logout-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      NEVA_DB.logoutCustomer();
+      location.href = "index.html";
+    });
+  });
+
+  let filter = "all";
+  document.querySelectorAll("#res-filter-bar .filter-chip").forEach(chip => {
+    chip.addEventListener("click", () => {
+      document.querySelectorAll("#res-filter-bar .filter-chip").forEach(c => c.classList.remove("active"));
+      chip.classList.add("active");
+      filter = chip.dataset.status;
+      renderReservations();
+    });
+  });
+
+  function statusLabel(s){ return { pending:"Gözləyir", confirmed:"Təsdiqlənib", cancelled:"Ləğv edilib" }[s] || s; }
+
+  function renderReservations(){
+    let list = NEVA_DB.getReservationsByCustomer(customer.id);
+    if (filter !== "all") list = list.filter(r => r.status === filter);
+
+    document.getElementById("my-reservations").innerHTML = list.length ? list.map(r => `
+      <div class="admin-card" style="margin-bottom:14px;padding:20px">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:14px;flex-wrap:wrap">
+          <div>
+            <h3 style="margin-bottom:4px;font-size:1.05rem">${r.bizName}</h3>
+            <p style="margin:0;color:var(--ink-muted);font-size:.9rem">${r.serviceName} · ${r.date} · ${r.time}</p>
+          </div>
+          <div style="text-align:right">
+            <div class="status-pill status-${r.status}">${statusLabel(r.status)}</div>
+            <div style="margin-top:6px;font-family:'Fraunces',serif;color:var(--ink)">${r.price > 0 ? r.price + ' ₼' : t('detail.free')}</div>
+          </div>
+        </div>
+      </div>`).join("") : `<div class="admin-card empty-state">Bu filtrə uyğun rezervasiya yoxdur. <a href="services.html">Yeni rezervasiya et →</a></div>`;
+  }
+  renderReservations();
+  applyNevaI18n();
+})();
+</script>
+</body>
+</html>
