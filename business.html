@@ -184,16 +184,16 @@ root.innerHTML = `
 /* if the customer is logged in, prefill + lock their contact info and
    tag the reservation to their account so it shows up in "Hesabım" */
 const loggedCustomer = NEVA_DB.getCurrentCustomer();
-const bkBanner = document.getElementById("bk-login-banner");
-if (loggedCustomer) {
-  document.getElementById("bk-name").value = loggedCustomer.name;
-  document.getElementById("bk-phone").value = loggedCustomer.phone;
-  bkBanner.style.display = "block";
-  bkBanner.innerHTML = `${loggedCustomer.name} kimi daxil olmusan — bu rezervasiya <a href="account.html">Hesabım</a> bölməsində görünəcək.`;
-} else {
-  bkBanner.style.display = "block";
-  bkBanner.innerHTML = `Qonaq kimi rezerv edə bilərsən, amma <a href="customer-login.html">daxil olsan</a> rezervasiyalarını "Hesabım"da izləyə bilərsən.`;
-}
+// const bkBanner = document.getElementById("bk-login-banner");
+// if (loggedCustomer) {
+//   document.getElementById("bk-name").value = loggedCustomer.name;
+//   document.getElementById("bk-phone").value = loggedCustomer.phone;
+//   bkBanner.style.display = "block";
+//   bkBanner.innerHTML = `${loggedCustomer.name} kimi daxil olmusan — bu rezervasiya <a href="account.html">Hesabım</a> bölməsində görünəcək.`;
+// } else {
+//   bkBanner.style.display = "block";
+//   bkBanner.innerHTML = `Qonaq kimi rezerv edə bilərsən, amma <a href="customer-login.html">daxil olsan</a> rezervasiyalarını "Hesabım"da izləyə bilərsən.`;
+// }
 
 /* populate service select */
 const vocab = getCatVocab(biz.cat);
