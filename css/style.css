@@ -11,6 +11,7 @@
 
 :root{
   --navy:#1B2438;
+  --navy2:#1B2438;
   --navy-light:#26314B;
   --navy-soft:#3A4667;
   --lavender:#8B93C4;
@@ -197,7 +198,7 @@ p{margin:0 0 1em;color:var(--ink-muted);}
 
 /* ---------- search bar (home + services) ---------- */
 .search-panel{
-  background:var(--navy);border-radius:20px;padding:26px;display:grid;
+  background:var(--navy2);border-radius:20px;padding:26px;display:grid;
   grid-template-columns:1.4fr 1fr 1fr auto;gap:14px;box-shadow:var(--shadow);
   margin-top:34px;position:relative;z-index:5;
 }
@@ -271,7 +272,7 @@ p{margin:0 0 1em;color:var(--ink-muted);}
   padding:9px 16px;border-radius:999px;border:1px solid var(--line);background:var(--card-bg);
   font-size:.85rem;font-weight:500;cursor:pointer;transition:.2s;color: var(--ink);
 }
-.filter-chip.active,.filter-chip:hover{background:var(--navy);color:var(--ink);border-color:var(--navy);}
+.filter-chip.active,.filter-chip:hover{background:var(--navy);color:var(--cream);border-color:var(--navy);}
 #map{height:640px;border-radius:var(--radius);border:1px solid var(--line);position:sticky;top:96px;overflow:hidden;box-shadow:var(--shadow);}
 .biz-list{display:flex;flex-direction:column;gap:14px;}
 @media(max-width:980px){
@@ -349,20 +350,20 @@ p{margin:0 0 1em;color:var(--ink-muted);}
 .contact-form input,.contact-form textarea,.contact-form select{
   width:100%;padding:13px 14px;border:1px solid var(--line);border-radius:10px;font-family:'Inter';background:var(--card-bg);
 }
-.contact-info-card{background:var(--navy);color:var(--cream);border-radius:20px;padding:34px;}
+.contact-info-card{background:var(--navy-light);color:var(--cream);border-radius:20px;padding:34px;}
 .contact-info-card .row{display:flex;gap:14px;margin-bottom:22px;align-items:flex-start;}
-.contact-info-card .row .ic{width:38px;height:38px;border-radius:10px;background:var(--navy-light);display:flex;align-items:center;justify-content:center;flex:0 0 auto;}
-.contact-info-card h4{color:var(--cream);margin-bottom:2px;}
+.contact-info-card .row .ic{width:38px;height:38px;border-radius:10px;background:var(--navy-light);color:#F8F4EC;display:flex;align-items:center;justify-content:center;flex:0 0 auto;}
+.contact-info-card h4{color:#F8F4EC;margin-bottom:2px;}
 .contact-info-card p{color:var(--lavender-soft);margin:0;}
 @media(max-width:880px){.contact-grid{grid-template-columns:1fr;}}
 
 /* ---------- CTA band ---------- */
-.cta-band{background:var(--navy);border-radius:24px;padding:56px;text-align:center;position:relative;overflow:hidden;}
+.cta-band{background:var(--navy-light);border-radius:24px;padding:56px;text-align:center;position:relative;overflow:hidden;}
 .cta-band h2{color:#F8F4EC;}
 .cta-band p{color:var(--lavender-soft);max-width:480px;margin:0 auto 26px;}
 
 /* ---------- footer ---------- */
-.site-footer{background:var(--navy);color:var(--lavender-soft);margin-top:100px;padding:64px 0 26px;}
+.site-footer{background:var(--navy2);color:var(--lavender-soft);margin-top:100px;padding:64px 0 26px;}
 .footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:36px;margin-bottom:46px;}
 .footer-grid h5{color:#F3F1E9;font-size:.85rem;letter-spacing:.08em;text-transform:uppercase;margin-bottom:16px;}
 .footer-grid ul li{margin-bottom:10px;}
@@ -536,7 +537,7 @@ p{margin:0 0 1em;color:var(--ink-muted);}
 }
 
 /* business login/register tabs (admin-login.html, customer-login.html) */
-.login-wrap{min-height:100vh;min-height:100svh;display:flex;align-items:center;justify-content:center;padding:40px 20px;background:var(--navy-light);}
+.login-wrap{min-height:100vh;min-height:100svh;display:flex;align-items:center;justify-content:center;padding:40px 20px;background:var(--navy2);}
 .login-card{width:100%;max-width:420px;background:var(--cream);border-radius:20px;padding:38px 34px;box-shadow:0 24px 60px -20px rgba(0,0,0,.5);}
 .login-card .logo{justify-content:center;margin-bottom:22px;color:var(--ink);}
 .tabs{display:flex;background:var(--cream-dark);border-radius:10px;padding:4px;margin-bottom:24px;}
@@ -544,7 +545,7 @@ p{margin:0 0 1em;color:var(--ink-muted);}
   flex:1;padding:10px;border:none;background:none;border-radius:8px;font-weight:600;font-size:.88rem;
   color:var(--ink-muted);cursor:pointer;transition:.2s ease;
 }
-.tabs button.active{background:var(--navy-light);color:#F8F4EC;}
+.tabs button.active{background:var(--navy2);color:#F8F4EC;}
 .login-field{margin-bottom:14px;}
 .login-field label{display:block;font-size:.82rem;font-weight:600;margin-bottom:6px;color:var(--ink);}
 .login-field input,.login-field select{
