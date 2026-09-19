@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="44 -4 78 72">
+  <defs>
+    <linearGradient id="fA" x1="48" y1="17" x2="65" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset=".35" stop-color="#8AD5EB"/><stop offset=".9" stop-color="#164882"/>
+    </linearGradient>
+    <linearGradient id="fB" x1="105" y1="64" x2="118" y2="52" gradientUnits="userSpaceOnUse">
+      <stop offset=".4" stop-color="#8AD5EB"/><stop offset="1" stop-color="#164882"/>
+    </linearGradient>
+    <linearGradient id="fC" x1="106" y1="11" x2="119" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset=".3" stop-color="#8AD5EB"/><stop offset=".85" stop-color="#164882"/>
+    </linearGradient>
+  </defs>
+  <line x1="54.051" y1="16.779" x2="54.051" y2="59.709" stroke="#1B2438" stroke-width="6.101" stroke-linecap="round"/>
+  <line x1="65.196" y1="13.825" x2="101.331" y2="49.959" stroke="#1B2438" stroke-width="6.101" stroke-linecap="round"/>
+  <line x1="112.476" y1="15.762" x2="112.476" y2="48.022" stroke="#1B2438" stroke-width="6.101" stroke-linecap="round"/>
+  <circle cx="54.051" cy="5.461" r="5.461" fill="url(#fA)"/>
+  <circle cx="112.476" cy="5.461" r="5.461" fill="url(#fC)"/>
+  <circle cx="111.079" cy="58.322" r="5.461" fill="url(#fB)"/>
+</svg>

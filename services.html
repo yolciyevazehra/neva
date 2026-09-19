@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="az">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Xidmətlər — Neva</title>
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <script>(function () { try { var t = localStorage.getItem('neva_theme'); if (!t) { t = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'; } document.documentElement.setAttribute('data-theme', t); } catch (e) { } })();</script>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+</head>
+
+<body>
+
+  <header class="site-header">
+    <div class="nav">
+      <a href="index.html" class="logo">
+        <span class="logo-icon" data-neva-logo="34"></span>
+        <span class="logo-word">NEVA</span>
+      </a>
+      <nav class="nav-links">
+        <a href="index.html" data-i18n="nav.home">Ana səhifə</a>
+        <a href="services.html" data-i18n="nav.services">Xidmətlər</a>
+        <a href="about.html" data-i18n="nav.about">Haqqımızda</a>
+        <a href="faq.html" data-i18n="nav.faq">FAQ</a>
+        <a href="contact.html" data-i18n="nav.contact">Əlaqə</a>
+        <div class="nav-extra">
+          <a href="admin-login.html" data-i18n="nav.bizpanel">Biznes Paneli</a>
+          <a href="customer-login.html" class="js-login-link" data-i18n="nav.login">Daxil ol</a>
+          <div class="lang-switch lang-switch-mobile"></div>
+        </div>
+      </nav>
+      <div class="nav-cta">
+        <div class="lang-switch"></div>
+        <button class="theme-toggle" type="button" aria-label="Tema deyisdir" title="Tema deyisdir"></button>
+        <a href="admin-login.html" class="btn btn-ghost btn-sm" style="border-color:transparent;color:var(--ink-muted)"
+          data-i18n="nav.bizpanel">Biznes Paneli</a>
+        <a href="customer-login.html" id="nav-login-link" class="btn btn-ghost btn-sm" data-i18n="nav.login">Daxil
+          ol</a>
+        <a href="services.html" class="btn btn-primary btn-sm" data-i18n="nav.book">Rezerv et</a>
+      </div>
+      <button class="burger" aria-label="Menyu"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <section class="section" style="padding-top:44px;padding-bottom:20px">
+    <div class="container">
+      <div class="eyebrow" data-i18n="services.eyebrow">Xəritədə axtar</div>
+      <h1 style="font-size:2.2rem" data-i18n="services.title">Sənə ən yaxın xidməti tap</h1>
+      <p style="max-width:560px" data-i18n="services.desc">Kateqoriya seç, xəritədəki nöqtələrə bax və uyğun olanı seçib
+        birbaşa rezervasiya et.</p>
+
+      <div class="filters-bar" id="filters-bar"></div>
+    </div>
+  </section>
+
+  <section class="container">
+    <div class="services-layout">
+      <div>
+        <div class="biz-list" id="biz-list"></div>
+      </div>
+      <div id="map"></div>
+    </div>
+  </section>
+
+  <div style="height:90px"></div>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-logo">
+            <a href="index.html" class="logo">
+              <span class="logo-icon" data-neva-logo="34"></span>
+              <span class="logo-word">NEVA</span>
+            </a>
+          </div>
+          <p style="max-width:260px" data-i18n="footer.tagline">Naviqasiya. Kəşf. Görüş. Rezervasiya. — bir nöqtədə
+            birləşən şəhər həyatı.</p>
+        </div>
+        <div>
+          <h5 data-i18n="footer.services">Xidmətlər</h5>
+          <ul>
+            <li><a href="services.html?cat=salon" data-i18n="footer.beauty">Gözəllik salonları</a></li>
+            <li><a href="services.html?cat=restaurant" data-i18n="footer.restaurants">Restoranlar</a></li>
+            <li><a href="services.html?cat=cafe" data-i18n="footer.cafes">Kafelər</a></li>
+          </ul>
+        </div>
+        <div>
+          <h5 data-i18n="footer.company">Şirkət</h5>
+          <ul>
+            <li><a href="about.html" data-i18n="nav.about">Haqqımızda</a></li>
+            <li><a href="faq.html" data-i18n="nav.faq">FAQ</a></li>
+            <li><a href="contact.html" data-i18n="nav.contact">Əlaqə</a></li>
+          </ul>
+        </div>
+        <div>
+          <h5 data-i18n="footer.contact">Əlaqə</h5>
+          <ul>
+            <li>hello@neva.az</li>
+            <li>+994 12 555 04 04</li>
+            <li>Bakı, Azərbaycan</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span data-i18n="footer.rights">© 2026 Neva. Bütün hüquqlar qorunur.</span>
+        <span data-i18n="footer.short">Naviqasiya · Kəşf · Görüş · Rezervasiya</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/i18n.js"></script>
+  <script src="js/logo.js"></script>
+  <script src="js/main.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+    const params = new URLSearchParams(location.search);
+    let activeCat = params.get("cat") || "all";
+    const qArea = (params.get("q") || "").toLowerCase();
+
+    const filtersBar = document.getElementById("filters-bar");
+    function renderFilters() {
+      filtersBar.innerHTML = "";
+      const allChip = { id: "all", label: t('search.categoryAll') };
+      [allChip, ...CATEGORIES.map(c => ({ id: c.id, label: c.label }))].forEach(c => {
+        const chip = document.createElement("button");
+        chip.className = "filter-chip" + (c.id === activeCat ? " active" : "");
+        chip.textContent = c.label;
+        chip.dataset.id = c.id;
+        chip.addEventListener("click", () => {
+          activeCat = c.id;
+          [...filtersBar.children].forEach(x => x.classList.remove("active"));
+          chip.classList.add("active");
+          render();
+        });
+        filtersBar.appendChild(chip);
+      });
+    }
+    renderFilters();
+
+    const map = L.map('map', { scrollWheelZoom: false }).setView(CITY_CENTER, 12);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors', maxZoom: 19
+    }).addTo(map);
+
+    const goldIcon = L.divIcon({
+      className: '', html: '<div style="width:16px;height:16px;border-radius:50%;background:#D4A574;border:3px solid #1B2438;box-shadow:0 0 0 4px rgba(212,165,116,.25)"></div>',
+      iconSize: [16, 16], iconAnchor: [8, 8]
+    });
+
+    let markers = [];
+    function render() {
+      const list = BUSINESSES.filter(b => (activeCat === "all" || b.cat === activeCat) &&
+        (!qArea || b.area.toLowerCase().includes(qArea) || b.name.toLowerCase().includes(qArea)));
+
+      document.getElementById("biz-list").innerHTML = list.length ? list.map(b => `
+      <a class="biz-card fade-up in" href="business.html?id=${b.id}">
+        <img class="thumb" src="${b.img}" alt="${b.name}">
+        <div>
+          <h3>${b.name}</h3>
+          <div class="biz-meta">
+            <span>${ICONS.pin} ${b.area}</span>
+            <span>${ICONS.star} <span class="rating">${b.rating}</span> (${b.reviews})</span>
+            <span>${b.price}</span>
+          </div>
+          <div class="tag-row">${b.tags.map(tag => `<span class="tag">${tag}</span>`).join("")}</div>
+        </div>
+        <div><span class="btn btn-ghost btn-sm">${t('biz.book')}</span></div>
+      </a>`).join("") : `<p style="padding:40px 0">${t('services.noresults')}</p>`;
+
+      document.querySelectorAll(".fade-up").forEach(el => el.classList.add("in"));
+
+      markers.forEach(m => map.removeLayer(m));
+      markers = list.map(b => {
+        const m = L.marker([b.lat, b.lng], { icon: goldIcon }).addTo(map)
+          .bindPopup(`<b>${b.name}</b><br>${b.area} · ★ ${b.rating}<br><a href="business.html?id=${b.id}">${t('biz.book')} →</a>`);
+        return m;
+      });
+      if (list.length) {
+        const bounds = L.latLngBounds(list.map(b => [b.lat, b.lng]));
+        map.fitBounds(bounds.pad(0.3));
+      }
+    }
+    render();
+    document.addEventListener("neva-lang-changed", () => { renderFilters(); render(); });
+  </script>
+</body>
+
+</html>

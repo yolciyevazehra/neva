@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Biznes Paneli — Daxil ol / Qeydiyyat — Neva</title>
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<script>(function(){try{var t=localStorage.getItem('neva_theme');if(!t){t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
+<link rel="stylesheet" href="css/style.css">
+<style>
+  .login-sub{text-align:center;color:var(--ink-muted);margin-bottom:22px;font-size:.92rem;}
+  .err{color:#B84B4B;font-size:.85rem;margin:-4px 0 12px;display:none;}
+  .back-link{display:block;text-align:center;margin-top:20px;color:var(--lavender-soft);font-size:.85rem;}
+  .form-panel{display:none;}
+  .form-panel.active{display:block;}
+  .login-theme-toggle{position:absolute;top:22px;right:22px;color:#F8F4EC;border-color:rgba(255,255,255,.3);}
+  .login-lang-switch{position:absolute;top:22px;left:22px;}
+  .login-lang-switch button{color:rgba(255,255,255,.75);}
+  .login-lang-switch{border-color:rgba(255,255,255,.3);}
+  .login-lang-switch button.active{background:var(--gold);color:var(--navy);}
+  .forgot-link{display:block;text-align:right;font-size:.8rem;color:var(--ink-muted);margin:-8px 0 14px;cursor:pointer;}
+  .forgot-link:hover{color:var(--gold);}
+</style>
+</head>
+<body>
+
+<div class="login-wrap" style="position:relative">
+  <div class="lang-switch login-lang-switch"></div>
+  <button class="theme-toggle login-theme-toggle" type="button" aria-label="Tema dəyişdir" title="Tema dəyişdir"></button>
+  <div class="login-card">
+    <div class="logo">
+      <span class="logo-icon" data-neva-logo="34"></span>
+      <span class="logo-word">NEVA</span>
+    </div>
+    <p class="login-sub">Biznesini Neva-da göstər — qeydiyyatdan keç və ya mövcud hesabına daxil ol</p>
+
+    <div class="demo-note">Demo rejimi: məlumatlar yalnız bu brauzerdə saxlanılır. Hazır demo biznes: <b>b1@neva.az</b> / <b>demo1234</b></div>
+
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="register" data-i18n="login.tabRegister">Qeydiyyat</button>
+      <button class="tab-btn" data-tab="login" data-i18n="login.tabLogin">Daxil ol</button>
+    </div>
+
+    <form class="form-panel" id="login-form">
+      <div class="login-field">
+        <label for="li-email" data-i18n="login.email">E-poçt</label>
+        <input id="li-email" type="text" placeholder="biznes@nümunə.az" required>
+      </div>
+      <div class="login-field">
+        <label for="li-pass" data-i18n="login.pass">Şifrə</label>
+        <input id="li-pass" type="password" placeholder="••••••••" required>
+      </div>
+      <span class="forgot-link" id="forgot-link-1" data-i18n="login.forgot">Şifrəni unutdum?</span>
+      <div class="err" id="login-err">E-poçt və ya şifrə yanlışdır.</div>
+      <button type="submit" class="btn btn-gold btn-block" data-i18n="nav.login">Daxil ol</button>
+    </form>
+
+    <form class="form-panel active" id="register-form">
+      <div class="login-field">
+        <label for="re-biz" data-i18n="login.bizName">Biznesin adı</label>
+        <input id="re-biz" type="text" placeholder="Məs: Lumen Gözəllik Studiyası" required>
+      </div>
+      <div class="login-field">
+        <label for="re-cat" data-i18n="login.category">Kateqoriya</label>
+        <select id="re-cat" required>
+          <option value="salon">Gözəllik salonu</option>
+          <option value="restaurant">Restoran</option>
+          <option value="cafe">Kafe</option>
+        </select>
+      </div>
+      <div class="login-field">
+        <label for="re-area" data-i18n="login.area">Rayon / ərazi</label>
+        <input id="re-area" type="text" placeholder="Məs: Nəsimi" required>
+      </div>
+      <div class="login-field">
+        <label for="re-email" data-i18n="login.email">E-poçt</label>
+        <input id="re-email" type="text" placeholder="biznes@nümunə.az" required>
+      </div>
+      <div class="login-field">
+        <label for="re-phone" data-i18n="login.phone">Telefon</label>
+        <input id="re-phone" type="tel" placeholder="+994 XX XXX XX XX" required>
+      </div>
+      <div class="login-field">
+        <label for="re-pass" data-i18n="login.pass">Şifrə</label>
+        <input id="re-pass" type="password" placeholder="Ən azı 4 simvol" required>
+      </div>
+      <div class="err" id="register-err">Xəta baş verdi.</div>
+      <button type="submit" class="btn btn-gold btn-block" data-i18n="login.registerBizBtn">Hesab yarat və panelə keç</button>
+    </form>
+
+    <a href="index.html" class="back-link" data-i18n="login.back">← Neva saytına qayıt</a>
+  </div>
+</div>
+
+<script src="js/data.js"></script>
+<script src="js/store.js"></script>
+<script src="js/i18n.js"></script>
+<script src="js/logo.js"></script>
+<script src="js/main.js"></script>
+<script>
+  if (localStorage.getItem("neva_session")) location.href = "admin.html";
+
+  const tabs = document.querySelectorAll(".tab-btn");
+  tabs.forEach(t => t.addEventListener("click", () => {
+    tabs.forEach(x => x.classList.remove("active"));
+    t.classList.add("active");
+    document.querySelectorAll(".form-panel").forEach(p => p.classList.remove("active"));
+    document.getElementById(t.dataset.tab + "-form").classList.add("active");
+  }));
+
+  document.getElementById("forgot-link-1").addEventListener("click", () => {
+    showToast("Demo rejimində şifrə bərpası yoxdur — dəstəklə əlaqə: hello@neva.az");
+  });
+
+  document.getElementById("login-form").addEventListener("submit", (e) => {
+    e.preventDefault();
+    const email = document.getElementById("li-email").value.trim();
+    const pass = document.getElementById("li-pass").value;
+    const result = NEVA_DB.ownerLogin(email, pass);
+    if (result.ok) { location.href = "admin.html"; }
+    else { document.getElementById("login-err").style.display = "block"; }
+  });
+
+  document.getElementById("register-form").addEventListener("submit", (e) => {
+    e.preventDefault();
+    const businessName = document.getElementById("re-biz").value.trim();
+    const cat = document.getElementById("re-cat").value;
+    const area = document.getElementById("re-area").value.trim();
+    const email = document.getElementById("re-email").value.trim();
+    const phone = document.getElementById("re-phone").value.trim();
+    const password = document.getElementById("re-pass").value;
+    const errBox = document.getElementById("register-err");
+    if (!businessName || !area || !email || !phone || password.length < 4) {
+      errBox.textContent = "Bütün sahələri düzgün doldurun (şifrə ən azı 4 simvol).";
+      errBox.style.display = "block";
+      return;
+    }
+    const result = NEVA_DB.registerOwner({ businessName, cat, area, email, phone, password });
+    if (result.ok) { location.href = "admin.html"; }
+    else { errBox.textContent = result.error; errBox.style.display = "block"; }
+  });
+</script>
+</body>
+</html>

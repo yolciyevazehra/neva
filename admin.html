@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Biznes Paneli — Neva</title>
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<script>(function(){try{var t=localStorage.getItem('neva_theme');if(!t){t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="admin-shell">
+  <aside class="admin-side">
+    <div class="logo">
+      <span class="logo-icon" data-neva-logo="30"></span>
+      <span class="logo-word">NEVA</span>
+    </div>
+    <div class="lang-switch" style="margin:0 8px 20px;align-self:flex-start"></div>
+    <div class="admin-biz-tag">
+      <b id="side-biz-name">—</b>
+      <span id="side-biz-area">—</span>
+    </div>
+    <nav class="admin-nav">
+      <button data-panel="overview" class="active" data-i18n="admin.overview">Ümumi baxış</button>
+      <button data-panel="reservations" data-i18n="admin.reservations">Rezervasiyalar</button>
+      <button data-panel="services" id="nav-services-label">Xidmətlər & Qiymətlər</button>
+      <button data-panel="menu" id="nav-menu-tab" style="display:none">Menyu</button>
+      <button data-panel="profile" data-i18n="admin.profile">Profil</button>
+    </nav>
+    <div class="admin-logout" id="logout-btn" data-i18n="admin.logout">↩ Çıxış et</div>
+  </aside>
+
+  <main class="admin-main">
+
+    <!-- OVERVIEW -->
+    <section class="admin-panel active" id="panel-overview">
+      <div class="admin-topbar">
+        <div>
+          <div class="eyebrow" data-i18n="admin.overview">Ümumi baxış</div>
+          <h1 style="font-size:1.8rem;margin:0" id="ov-title">Xoş gəldiniz</h1>
+        </div>
+        <a href="index.html" target="_blank" class="btn btn-ghost btn-sm" data-i18n="admin.viewSite">Saytda gör ↗</a>
+      </div>
+      <div class="kpi-grid">
+        <div class="kpi-card"><div class="kpi-label" data-i18n="admin.kpiPending">Gözləyən sorğular</div><div class="kpi-value" id="kpi-pending">0</div></div>
+        <div class="kpi-card"><div class="kpi-label" data-i18n="admin.kpiConfirmed">Təsdiqlənmiş (bu həftə)</div><div class="kpi-value" id="kpi-confirmed">0</div></div>
+        <div class="kpi-card"><div class="kpi-label" data-i18n="admin.kpiTotal">Ümumi rezervasiya</div><div class="kpi-value" id="kpi-total">0</div></div>
+        <div class="kpi-card"><div class="kpi-label" data-i18n="admin.kpiRevenue">Təxmini gəlir (₼)</div><div class="kpi-value" id="kpi-revenue">0</div></div>
+      </div>
+      <div class="admin-card">
+        <h3 style="margin-bottom:16px" data-i18n="admin.recent">Son rezervasiyalar</h3>
+        <div id="ov-recent"></div>
+      </div>
+    </section>
+
+    <!-- RESERVATIONS -->
+    <section class="admin-panel" id="panel-reservations">
+      <div class="admin-topbar">
+        <div>
+          <div class="eyebrow">Rezervasiyalar</div>
+          <h1 style="font-size:1.8rem;margin:0">Kim, nə vaxt, nə üçün</h1>
+        </div>
+        <div class="filters-bar" style="margin:0" id="res-filter-bar">
+          <button class="filter-chip active" data-status="all">Hamısı</button>
+          <button class="filter-chip" data-status="pending">Gözləyən</button>
+          <button class="filter-chip" data-status="confirmed">Təsdiqlənmiş</button>
+          <button class="filter-chip" data-status="cancelled">Ləğv edilmiş</button>
+        </div>
+      </div>
+      <div class="admin-card">
+        <div id="res-table-wrap"></div>
+      </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section class="admin-panel" id="panel-services">
+      <div class="admin-topbar">
+        <div>
+          <div class="eyebrow" id="svc-eyebrow">Xidmətlər & Qiymətlər</div>
+          <h1 style="font-size:1.8rem;margin:0" id="svc-panel-title">Qiyməti dəyişən kimi saytda görünür</h1>
+        </div>
+      </div>
+      <div class="admin-card">
+        <div id="svc-cols-header" style="display:grid;grid-template-columns:1fr 130px 110px auto;gap:12px;font-size:.76rem;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-muted);padding-bottom:8px;border-bottom:1px solid var(--line)">
+          <span id="col-label-name">Xidmət adı</span><span id="col-label-dur">Müddət</span><span>Qiymət (₼)</span><span></span>
+        </div>
+        <div id="svc-edit-list"></div>
+        <form class="add-svc-form" id="add-svc-form">
+          <input type="text" id="new-svc-name" placeholder="Yeni xidmət adı" required>
+          <input type="text" id="new-svc-staff" placeholder="Usta adı (istəyə görə)" style="display:none">
+          <input type="text" id="new-svc-dur" placeholder="məs. 45 dəq">
+          <input type="number" id="new-svc-price" placeholder="Qiymət" min="0" required>
+          <button type="submit" class="btn btn-primary btn-sm">Əlavə et</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- MENU (café / restaurant only) -->
+    <section class="admin-panel" id="panel-menu">
+      <div class="admin-topbar">
+        <div>
+          <div class="eyebrow">Menyu</div>
+          <h1 style="font-size:1.8rem;margin:0">Yeməklər və içkilər</h1>
+        </div>
+        <div class="filters-bar" style="margin:0" id="menu-filter-bar"></div>
+      </div>
+      <div class="admin-card" style="margin-bottom:20px">
+        <h3 style="margin-bottom:6px;font-size:1.02rem">Menyunuzun linki</h3>
+        <p style="margin:0 0 14px;font-size:.86rem">Aşağıdakı hər bir yeməyi ayrıca daxil etmək istəmirsinizsə, sadəcə menyunuzun tam linkini (PDF, sayt və ya sosial media səhifəsi) əlavə edin — müştərilər bu linkdən tam menyunuza baxa biləcək.</p>
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <input type="url" id="menu-link-input" placeholder="https://..." style="flex:1;min-width:220px;padding:11px 12px;border:1px solid var(--line);border-radius:10px;font-family:'Inter';background:var(--cream)">
+          <button class="btn btn-primary btn-sm" id="menu-link-save">Linki yadda saxla</button>
+        </div>
+      </div>
+      <div class="admin-card">
+        <div class="menu-grid" id="menu-grid"></div>
+        <form class="add-menu-form" id="add-menu-form">
+          <input type="text" id="new-mi-name" placeholder="Yeni menyu adı" required>
+          <select id="new-mi-cat"></select>
+          <input type="number" id="new-mi-price" placeholder="Qiymət" min="0" required>
+          <input type="text" id="new-mi-desc" placeholder="Qısa təsvir (istəyə görə)">
+          <button type="submit" class="btn btn-primary btn-sm">Əlavə et</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- PROFILE -->
+    <section class="admin-panel" id="panel-profile">
+      <div class="admin-topbar">
+        <div>
+          <div class="eyebrow">Profil</div>
+          <h1 style="font-size:1.8rem;margin:0">Biznes məlumatları</h1>
+        </div>
+      </div>
+      <div class="admin-card" style="max-width:640px">
+        <div class="field" style="margin-bottom:16px">
+          <label style="display:block;font-size:.85rem;font-weight:600;margin-bottom:6px">Biznes adı</label>
+          <input type="text" id="pf-name" disabled style="width:100%;padding:12px;border:1px solid var(--line);border-radius:10px;background:var(--cream-dark);color:var(--ink-muted)">
+        </div>
+        <div class="field" style="margin-bottom:16px">
+          <label style="display:block;font-size:.85rem;font-weight:600;margin-bottom:6px">Təsvir</label>
+          <textarea id="pf-desc" rows="4" style="width:100%;padding:12px;border:1px solid var(--line);border-radius:10px;font-family:'Inter'" placeholder="Müştərilərə özünüzü tanıdın..."></textarea>
+        </div>
+        <div class="field" style="margin-bottom:16px">
+          <label style="display:block;font-size:.85rem;font-weight:600;margin-bottom:6px">İş saatları</label>
+          <input type="text" id="pf-hours" style="width:100%;padding:12px;border:1px solid var(--line);border-radius:10px" placeholder="Bazar ertəsi – Şənbə, 10:00–20:00">
+        </div>
+        <div class="field" style="margin-bottom:20px">
+          <label style="display:block;font-size:.85rem;font-weight:600;margin-bottom:6px">Etiketlər (vergüllə ayırın)</label>
+          <input type="text" id="pf-tags" style="width:100%;padding:12px;border:1px solid var(--line);border-radius:10px" placeholder="Saç, Manikür, Kirpik">
+        </div>
+        <button class="btn btn-gold" id="pf-save">Dəyişiklikləri yadda saxla</button>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script src="js/data.js"></script>
+<script src="js/store.js"></script>
+<script src="js/logo.js"></script>
+<script src="js/i18n.js"></script>
+<script src="js/main.js"></script>
+<script>
+(function(){
+const bizId = localStorage.getItem("neva_session");
+if (!bizId || !getBusiness(bizId)) { location.href = "admin-login.html"; return; }
+document.addEventListener("neva-lang-changed", () => { renderOverview(); });
+
+let biz = NEVA_DB.getBusiness(bizId);
+const vocab = getCatVocab(biz.cat);
+document.getElementById("side-biz-name").textContent = biz.name;
+document.getElementById("side-biz-area").textContent = biz.area + ", Bakı";
+document.getElementById("ov-title").textContent = `Salam, ${biz.name} 👋`;
+
+/* category-aware labels: a restaurant/cafe owner sees "Masalar", a salon owner sees "Xidmətlər" */
+document.getElementById("nav-services-label").textContent = vocab.panelTitle;
+document.getElementById("svc-eyebrow").textContent = vocab.panelTitle;
+document.getElementById("new-svc-dur").placeholder = vocab.durPlaceholder;
+
+/* only salons assign a named staff member (stylist / nail tech / etc.)
+   to each service — tables/zones at restaurants & cafés don't need one */
+const bizHasStaff = biz.cat === "salon";
+function renderSvcColsHeader(){
+  document.getElementById("svc-cols-header").style.gridTemplateColumns = bizHasStaff
+    ? "1fr 1fr 100px 90px auto" : "1fr 130px 110px auto";
+  document.getElementById("svc-cols-header").innerHTML = bizHasStaff
+    ? `<span>${vocab.itemLabel} adı</span><span>Usta</span><span>${vocab.durLabel}</span><span>Qiymət (₼)</span><span></span>`
+    : `<span>${vocab.itemLabel} adı</span><span>${vocab.durLabel}</span><span>Qiymət (₼)</span><span></span>`;
+}
+renderSvcColsHeader();
+document.getElementById("new-svc-name").placeholder = "Yeni " + vocab.itemLabel.toLowerCase();
+document.getElementById("new-svc-staff").style.display = bizHasStaff ? "" : "none";
+document.getElementById("add-svc-form").classList.toggle("with-staff", bizHasStaff);
+
+/* café / restaurant businesses get an extra "Menyu" tab for their
+   food & drink items, separate from the table/zone list above */
+const bizHasMenu = typeof hasMenu === "function" && hasMenu(biz.cat);
+const menuCats = bizHasMenu ? getMenuCategories(biz.cat) : [];
+if (bizHasMenu) {
+  document.getElementById("nav-menu-tab").style.display = "";
+  document.getElementById("new-mi-cat").innerHTML = menuCats.map(c => `<option value="${c}">${c}</option>`).join("");
+  document.getElementById("menu-filter-bar").innerHTML = ["Hamısı", ...menuCats]
+    .map((c, i) => `<button class="filter-chip${i===0?' active':''}" data-cat="${i===0?'all':c}">${c}</button>`).join("");
+  document.querySelectorAll("#menu-filter-bar .filter-chip").forEach(chip => {
+    chip.addEventListener("click", () => {
+      document.querySelectorAll("#menu-filter-bar .filter-chip").forEach(c=>c.classList.remove("active"));
+      chip.classList.add("active");
+      menuFilter = chip.dataset.cat;
+      renderMenu();
+    });
+  });
+}
+
+document.getElementById("logout-btn").addEventListener("click", () => {
+  localStorage.removeItem("neva_session");
+  location.href = "admin-login.html";
+});
+
+/* ---------- sidebar tab switching ---------- */
+document.querySelectorAll(".admin-nav button").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll(".admin-nav button").forEach(b => b.classList.remove("active"));
+    document.querySelectorAll(".admin-panel").forEach(p => p.classList.remove("active"));
+    btn.classList.add("active");
+    document.getElementById("panel-" + btn.dataset.panel).classList.add("active");
+    if (btn.dataset.panel === "reservations") renderReservations();
+    if (btn.dataset.panel === "services") renderServices();
+    if (btn.dataset.panel === "menu") renderMenu();
+    if (btn.dataset.panel === "profile") loadProfile();
+    if (btn.dataset.panel === "overview") renderOverview();
+  });
+});
+
+/* ---------- overview ---------- */
+function renderOverview(){
+  const res = NEVA_DB.getReservations(bizId);
+  const pending = res.filter(r => r.status === "pending").length;
+  const confirmed = res.filter(r => r.status === "confirmed").length;
+  const revenue = res.filter(r => r.status === "confirmed").reduce((s,r)=>s+(r.price||0),0);
+
+  document.getElementById("kpi-pending").textContent = pending;
+  document.getElementById("kpi-confirmed").textContent = confirmed;
+  document.getElementById("kpi-total").textContent = res.length;
+  document.getElementById("kpi-revenue").textContent = revenue + " ₼";
+
+  const recent = res.slice(0,5);
+  document.getElementById("ov-recent").innerHTML = recent.length ? `
+    <table class="admin-table"><thead><tr><th>Müştəri</th><th>${vocab.itemLabel}</th><th>Tarix</th><th>Status</th></tr></thead>
+    <tbody>${recent.map(r => `<tr>
+        <td>${r.customerName}</td><td>${r.serviceName}</td><td>${r.date} · ${r.time}</td>
+        <td><span class="status-pill status-${r.status}">${statusLabel(r.status)}</span></td>
+      </tr>`).join("")}</tbody></table>` : `<div class="empty-state">Hələ rezervasiya yoxdur.</div>`;
+}
+
+function statusLabel(s){ return { pending:"Gözləyir", confirmed:"Təsdiqlənib", cancelled:"Ləğv edilib" }[s] || s; }
+
+/* ---------- reservations ---------- */
+let resFilter = "all";
+document.querySelectorAll("#res-filter-bar .filter-chip").forEach(chip => {
+  chip.addEventListener("click", () => {
+    document.querySelectorAll("#res-filter-bar .filter-chip").forEach(c=>c.classList.remove("active"));
+    chip.classList.add("active");
+    resFilter = chip.dataset.status;
+    renderReservations();
+  });
+});
+
+function renderReservations(){
+  let res = NEVA_DB.getReservations(bizId);
+  if (resFilter !== "all") res = res.filter(r => r.status === resFilter);
+
+  document.getElementById("res-table-wrap").innerHTML = res.length ? `
+    <table class="admin-table">
+      <thead><tr><th>Müştəri</th><th>Telefon</th><th>${vocab.itemLabel}</th><th>Tarix / saat</th><th>Qiymət</th><th>Status</th></tr></thead>
+      <tbody>${res.map(r => `
+        <tr>
+          <td>${r.customerName}</td>
+          <td>${r.phone}</td>
+          <td>${r.serviceName}</td>
+          <td>${r.date} · ${r.time}</td>
+          <td>${r.price > 0 ? r.price + ' ₼' : t('detail.free')}</td>
+          <td>
+            <select class="status-select" data-id="${r.id}">
+              <option value="pending" ${r.status==='pending'?'selected':''}>Gözləyir</option>
+              <option value="confirmed" ${r.status==='confirmed'?'selected':''}>Təsdiqlə</option>
+              <option value="cancelled" ${r.status==='cancelled'?'selected':''}>Ləğv et</option>
+            </select>
+          </td>
+        </tr>`).join("")}</tbody>
+    </table>` : `<div class="empty-state">Bu filtrə uyğun rezervasiya yoxdur.</div>`;
+
+  document.querySelectorAll(".status-select").forEach(sel => {
+    sel.addEventListener("change", () => {
+      NEVA_DB.updateReservationStatus(sel.dataset.id, sel.value);
+      showToast("Status yeniləndi.");
+      renderReservations();
+    });
+  });
+}
+
+/* ---------- services ---------- */
+function renderServices(){
+  biz = NEVA_DB.getBusiness(bizId);
+  document.getElementById("svc-edit-list").innerHTML = biz.services.map(s => `
+    <div class="svc-edit-row${bizHasStaff ? ' with-staff' : ''}" data-id="${s.id}">
+      <input type="text" class="svc-name" value="${s.name}">
+      ${bizHasStaff ? `<input type="text" class="svc-staff" value="${s.staff || ''}" placeholder="Usta adı">` : ""}
+      <input type="text" class="svc-dur" value="${s.dur}">
+      <input type="number" class="svc-price" value="${s.price}" min="0">
+      <button class="icon-btn svc-delete" title="Sil">✕</button>
+    </div>`).join("");
+
+  document.querySelectorAll(".svc-edit-row").forEach(row => {
+    const id = row.dataset.id;
+    const classes = bizHasStaff ? ["svc-name","svc-staff","svc-dur","svc-price"] : ["svc-name","svc-dur","svc-price"];
+    classes.forEach(cls => {
+      row.querySelector("." + cls).addEventListener("change", () => saveServicesFromDOM());
+    });
+    row.querySelector(".svc-delete").addEventListener("click", () => {
+      biz.services = biz.services.filter(s => s.id !== id);
+      NEVA_DB.saveServices(bizId, biz.services);
+      showToast(`${vocab.itemLabel} silindi.`);
+      renderServices();
+    });
+  });
+}
+
+function saveServicesFromDOM(){
+  const rows = document.querySelectorAll(".svc-edit-row");
+  const updated = [...rows].map(row => {
+    const svc = {
+      id: row.dataset.id,
+      name: row.querySelector(".svc-name").value.trim(),
+      dur: row.querySelector(".svc-dur").value.trim() || "—",
+      price: Number(row.querySelector(".svc-price").value) || 0,
+    };
+    if (bizHasStaff) svc.staff = row.querySelector(".svc-staff").value.trim();
+    return svc;
+  });
+  biz.services = updated;
+  NEVA_DB.saveServices(bizId, updated);
+  showToast("Qiymət yeniləndi — dərhal saytda görünür.");
+}
+
+document.getElementById("add-svc-form").addEventListener("submit", (e) => {
+  e.preventDefault();
+  const name = document.getElementById("new-svc-name").value.trim();
+  const dur = document.getElementById("new-svc-dur").value.trim() || "—";
+  const price = Number(document.getElementById("new-svc-price").value) || 0;
+  if (!name) return;
+  const newSvc = { id: bizId + "_s" + Date.now(), name, dur, price };
+  if (bizHasStaff) newSvc.staff = document.getElementById("new-svc-staff").value.trim();
+  biz.services.push(newSvc);
+  NEVA_DB.saveServices(bizId, biz.services);
+  e.target.reset();
+  showToast(`Yeni ${vocab.itemLabel.toLowerCase()} əlavə olundu.`);
+  renderServices();
+});
+
+/* ---------- menu (café / restaurant) ---------- */
+let menuFilter = "all";
+function renderMenu(){
+  if (!bizHasMenu) return;
+  biz = NEVA_DB.getBusiness(bizId);
+  let items = biz.menu || [];
+  if (menuFilter !== "all") items = items.filter(m => m.category === menuFilter);
+
+  document.getElementById("menu-grid").innerHTML = items.length ? items.map(m => `
+    <div class="menu-item-card ${m.available ? '' : 'unavailable'}" data-id="${m.id}">
+      <div class="mi-top">
+        <span class="mi-cat">${m.category}</span>
+        <button class="icon-btn mi-delete" title="Sil">✕</button>
+      </div>
+      <input type="text" class="mi-name" value="${m.name}">
+      <textarea class="mi-desc" placeholder="Qısa təsvir...">${m.desc || ""}</textarea>
+      <div class="mi-bottom">
+        <div class="mi-price"><input type="number" class="mi-price-input" value="${m.price}" min="0"><span>₼</span></div>
+        <label class="mi-avail-label"><input type="checkbox" class="mi-avail" ${m.available ? 'checked' : ''}> Menyuda aktiv</label>
+      </div>
+    </div>`).join("") : `<div class="empty-state">Bu kateqoriyada menyu maddəsi yoxdur.</div>`;
+
+  document.querySelectorAll(".menu-item-card").forEach(card => {
+    const id = card.dataset.id;
+    ["mi-name","mi-desc"].forEach(cls => {
+      card.querySelector("." + cls).addEventListener("change", () => saveMenuFromDOM());
+    });
+    card.querySelector(".mi-price-input").addEventListener("change", () => saveMenuFromDOM());
+    card.querySelector(".mi-avail").addEventListener("change", () => saveMenuFromDOM());
+    card.querySelector(".mi-delete").addEventListener("click", () => {
+      biz.menu = biz.menu.filter(m => m.id !== id);
+      NEVA_DB.saveMenu(bizId, biz.menu);
+      showToast("Menyu maddəsi silindi.");
+      renderMenu();
+    });
+  });
+}
+
+function saveMenuFromDOM(){
+  const cards = document.querySelectorAll(".menu-item-card");
+  const editedIds = new Set();
+  cards.forEach(card => {
+    const id = card.dataset.id;
+    editedIds.add(id);
+    const item = biz.menu.find(m => m.id === id);
+    if (!item) return;
+    item.name = card.querySelector(".mi-name").value.trim() || item.name;
+    item.desc = card.querySelector(".mi-desc").value.trim();
+    item.price = Number(card.querySelector(".mi-price-input").value) || 0;
+    item.available = card.querySelector(".mi-avail").checked;
+    card.classList.toggle("unavailable", !item.available);
+  });
+  NEVA_DB.saveMenu(bizId, biz.menu);
+  showToast("Menyu yeniləndi — dərhal saytda görünür.");
+}
+
+if (bizHasMenu) {
+  document.getElementById("add-menu-form").addEventListener("submit", (e) => {
+    e.preventDefault();
+    const name = document.getElementById("new-mi-name").value.trim();
+    const category = document.getElementById("new-mi-cat").value;
+    const price = Number(document.getElementById("new-mi-price").value) || 0;
+    const desc = document.getElementById("new-mi-desc").value.trim();
+    if (!name) return;
+    biz.menu = biz.menu || [];
+    biz.menu.push({ id: bizId + "_m" + Date.now(), category, name, price, desc, available: true });
+    NEVA_DB.saveMenu(bizId, biz.menu);
+    e.target.reset();
+    showToast("Yeni menyu maddəsi əlavə olundu.");
+    renderMenu();
+  });
+
+  function loadMenuLink(){
+    biz = NEVA_DB.getBusiness(bizId);
+    document.getElementById("menu-link-input").value = biz.menuLink || "";
+  }
+  document.getElementById("menu-link-save").addEventListener("click", () => {
+    const link = document.getElementById("menu-link-input").value.trim();
+    NEVA_DB.saveMenuLink(bizId, link);
+    biz.menuLink = link;
+    showToast("Menyu linki yadda saxlandı.");
+  });
+  loadMenuLink();
+}
+
+/* ---------- profile ---------- */
+function loadProfile(){
+  biz = NEVA_DB.getBusiness(bizId);
+  document.getElementById("pf-name").value = biz.name;
+  document.getElementById("pf-desc").value = biz.description || "";
+  document.getElementById("pf-hours").value = biz.hours || "";
+  document.getElementById("pf-tags").value = (biz.tags || []).join(", ");
+}
+document.getElementById("pf-save").addEventListener("click", () => {
+  const description = document.getElementById("pf-desc").value.trim();
+  const hours = document.getElementById("pf-hours").value.trim();
+  const tags = document.getElementById("pf-tags").value.split(",").map(t=>t.trim()).filter(Boolean);
+  NEVA_DB.saveProfile(bizId, { description, hours, tags });
+  showToast("Profil yeniləndi.");
+});
+
+renderOverview();
+applyNevaI18n();
+})();
+</script>
+</body>
+</html>

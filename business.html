@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Neva — Rezervasiya</title>
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<script>(function(){try{var t=localStorage.getItem('neva_theme');if(!t){t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="nav">
+    <a href="index.html" class="logo">
+      <span class="logo-icon" data-neva-logo="34"></span>
+      <span class="logo-word">NEVA</span>
+    </a>
+    <nav class="nav-links">
+      <a href="index.html" data-i18n="nav.home">Ana səhifə</a>
+      <a href="services.html" data-i18n="nav.services">Xidmətlər</a>
+      <a href="about.html" data-i18n="nav.about">Haqqımızda</a>
+      <a href="faq.html" data-i18n="nav.faq">FAQ</a>
+      <a href="contact.html" data-i18n="nav.contact">Əlaqə</a>
+      <div class="nav-extra">
+        <a href="admin-login.html" data-i18n="nav.bizpanel">Biznes Paneli</a>
+        <a href="customer-login.html" class="js-login-link" data-i18n="nav.login">Daxil ol</a>
+        <div class="lang-switch lang-switch-mobile"></div>
+      </div>
+    </nav>
+    <div class="nav-cta">
+      <div class="lang-switch"></div>
+      <button class="theme-toggle" type="button" aria-label="Tema deyisdir" title="Tema deyisdir"></button>
+      <a href="admin-login.html" class="btn btn-ghost btn-sm" style="border-color:transparent;color:var(--ink-muted)" data-i18n="nav.bizpanel">Biznes Paneli</a>
+      <a href="customer-login.html" id="nav-login-link" class="btn btn-ghost btn-sm" data-i18n="nav.login">Daxil ol</a>
+      <a href="services.html" class="btn btn-primary btn-sm" data-i18n="nav.book">Rezerv et</a>
+    </div>
+    <button class="burger" aria-label="Menyu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<section class="container" style="padding-top:36px" id="detail-root">
+  <!-- filled by JS -->
+</section>
+
+<div style="height:80px"></div>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-logo">
+            <a href="index.html" class="logo">
+              <span class="logo-icon" data-neva-logo="34"></span>
+              <span class="logo-word">NEVA</span>
+            </a>
+          </div>
+          <p style="max-width:260px" data-i18n="footer.tagline">Naviqasiya. Kəşf. Görüş. Rezervasiya. — bir nöqtədə
+            birləşən şəhər həyatı.</p>
+        </div>
+        <div>
+          <h5 data-i18n="footer.services">Xidmətlər</h5>
+          <ul>
+            <li><a href="services.html?cat=salon" data-i18n="footer.beauty">Gözəllik salonları</a></li>
+            <li><a href="services.html?cat=restaurant" data-i18n="footer.restaurants">Restoranlar</a></li>
+            <li><a href="services.html?cat=cafe" data-i18n="footer.cafes">Kafelər</a></li>
+          </ul>
+        </div>
+        <div>
+          <h5 data-i18n="footer.company">Şirkət</h5>
+          <ul>
+            <li><a href="about.html" data-i18n="nav.about">Haqqımızda</a></li>
+            <li><a href="faq.html" data-i18n="nav.faq">FAQ</a></li>
+            <li><a href="contact.html" data-i18n="nav.contact">Əlaqə</a></li>
+          </ul>
+        </div>
+        <div>
+          <h5 data-i18n="footer.contact">Əlaqə</h5>
+          <ul>
+            <li>hello@neva.az</li>
+            <li>+994 12 555 04 04</li>
+            <li>Bakı, Azərbaycan</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span data-i18n="footer.rights">© 2026 Neva. Bütün hüquqlar qorunur.</span>
+        <span data-i18n="footer.short">Naviqasiya · Kəşf · Görüş · Rezervasiya</span>
+      </div>
+    </div>
+  </footer>
+
+<script src="js/data.js"></script>
+<script src="js/store.js"></script>
+<script src="js/i18n.js"></script>
+<script src="js/logo.js"></script>
+<script src="js/main.js"></script>
+<script>
+const params = new URLSearchParams(location.search);
+const bizId = params.get("id") || BUSINESSES[0].id;
+const biz = NEVA_DB.getBusiness(bizId) || BUSINESSES[0];
+const root = document.getElementById("detail-root");
+
+const catLabel = { salon:"Gözəllik salonu", restaurant:"Restoran", cafe:"Kafe" }[biz.cat];
+
+root.innerHTML = `
+  <div class="detail-hero fade-up in">
+    <img src="${biz.img}" alt="${biz.name}">
+    <div class="info">
+      <div class="eyebrow" style="color:#D4A574">${catLabel}</div>
+      <h1 style="color:#F8F4EC;font-size:2.1rem">${biz.name}</h1>
+      <p>${ICONS.pin} ${biz.area}, Bakı</p>
+      <div class="biz-meta" style="color:#C7CCE6">
+        <span>${ICONS.star} <b style="color:#D4A574">${biz.rating}</b> (${biz.reviews} rəy)</span>
+        <span>${biz.price}</span>
+      </div>
+      <div class="tag-row" style="margin-top:14px">${biz.tags.map(t=>`<span class="tag" style="background:#26314B;color:#F8F4EC">${t}</span>`).join("")}</div>
+    </div>
+  </div>
+
+  <div class="detail-body">
+    <div>
+      <div class="constellation"><span class="dot"></span><span class="stroke"></span><span class="dot gold"></span></div>
+      <h2 id="svc-section-title">Xidmətlər</h2>
+      <div id="svc-list"></div>
+
+      <div id="menu-section" style="display:none;margin-top:56px">
+        <div class="constellation"><span class="dot"></span><span class="stroke"></span><span class="dot gold"></span></div>
+        <h2>Menyu</h2>
+        <div id="menu-cats"></div>
+      </div>
+
+      <div style="margin-top:56px">
+        <div class="constellation"><span class="dot"></span><span class="stroke"></span><span class="dot gold"></span></div>
+        <h2>${t('detail.reviews')}</h2>
+        <div class="review">
+          <div class="review-head"><b>Aysel M.</b><span>${ICONS.star} 5.0</span></div>
+          <p>Çox peşəkar yanaşma idi, vaxtında qəbul edildim və nəticədən tam razı qaldım.</p>
+        </div>
+        <div class="review">
+          <div class="review-head"><b>Kamran R.</b><span>${ICONS.star} 4.5</span></div>
+          <p>Yer rahat tapılırdı, xidmət keyfiyyəti gözlədiyimdən yaxşı idi, tövsiyə edirəm.</p>
+        </div>
+        <div class="review">
+          <div class="review-head"><b>Nərmin S.</b><span>${ICONS.star} 5.0</span></div>
+          <p>Rezervasiyanı tətbiq üzərindən etmək çox rahat oldu, gözləmə olmadı.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="book-card">
+      <h4>${t('detail.bookHeading')}</h4>
+      <div id="bk-login-banner" style="display:none;background:var(--cream-dark);border-radius:10px;padding:12px 14px;font-size:.85rem;margin-bottom:16px;color:var(--ink)"></div>
+      <div class="field">
+        <label for="bk-service" id="bk-service-label">Xidmət seç</label>
+        <select id="bk-service"></select>
+      </div>
+      <div class="field">
+        <label for="bk-date">${t('detail.date')}</label>
+        <input type="date" id="bk-date">
+      </div>
+      <div class="field">
+        <label>${t('detail.time')}</label>
+        <div class="slots" id="bk-slots"></div>
+      </div>
+      <div class="field">
+        <label for="bk-name">${t('detail.name')}</label>
+        <input type="text" id="bk-name" placeholder="${t('detail.namePh')}">
+      </div>
+      <div class="field">
+        <label for="bk-phone">${t('detail.phone')}</label>
+        <input type="tel" id="bk-phone" placeholder="+994 XX XXX XX XX">
+      </div>
+      <div class="book-summary" id="bk-summary" style="display:none">
+        <div><span>${t('detail.summaryService')}</span><span id="sum-svc">—</span></div>
+        <div><span>${t('detail.summaryTime')}</span><span id="sum-time">—</span></div>
+        <div class="total"><span>${t('detail.summaryTotal')}</span><span id="sum-price">—</span></div>
+      </div>
+      <button class="btn btn-gold btn-block" id="bk-submit" style="margin-top:16px" disabled>${t('detail.confirm')}</button>
+    </div>
+  </div>
+`;
+
+/* if the customer is logged in, prefill + lock their contact info and
+   tag the reservation to their account so it shows up in "Hesabım" */
+const loggedCustomer = NEVA_DB.getCurrentCustomer();
+// const bkBanner = document.getElementById("bk-login-banner");
+// if (loggedCustomer) {
+//   document.getElementById("bk-name").value = loggedCustomer.name;
+//   document.getElementById("bk-phone").value = loggedCustomer.phone;
+//   bkBanner.style.display = "block";
+//   bkBanner.innerHTML = `${loggedCustomer.name} kimi daxil olmusan — bu rezervasiya <a href="account.html">Hesabım</a> bölməsində görünəcək.`;
+// } else {
+//   bkBanner.style.display = "block";
+//   bkBanner.innerHTML = `Qonaq kimi rezerv edə bilərsən, amma <a href="customer-login.html">daxil olsan</a> rezervasiyalarını "Hesabım"da izləyə bilərsən.`;
+// }
+
+/* populate service select */
+const vocab = getCatVocab(biz.cat);
+document.getElementById("svc-section-title").textContent = vocab.itemLabelPlural;
+document.getElementById("bk-service-label").textContent = vocab.bookLabel;
+
+const svcSelect = document.getElementById("bk-service");
+svcSelect.innerHTML = `<option value="">${vocab.selectPlaceholder}</option>` +
+  biz.services.map((s,i)=>`<option value="${i}">${s.name}${s.staff ? ' — '+s.staff : ''} — ${s.price>0?s.price+' ₼':t('detail.free')}</option>`).join("");
+
+document.getElementById("svc-list").innerHTML = biz.services.map(s => `
+  <div class="svc-list-item">
+    <div>
+      <div class="name">${s.name}</div>
+      <div class="dur">${ICONS[vocab.durIcon]} ${s.dur}${s.staff ? ` · ${ICONS.users} ${s.staff}` : ""}</div>
+    </div>
+    <div class="price">${s.price>0 ? s.price+' ₼' : t('detail.free')}</div>
+  </div>`).join("");
+
+/* café / restaurant menu — grouped by category, sold-out items hidden;
+   plus an optional link to the owner's full external menu (PDF / site) */
+const menuHasItems = typeof hasMenu === "function" && hasMenu(biz.cat) && (biz.menu || []).some(m => m.available);
+const hasMenuLink = !!(biz.menuLink && biz.menuLink.trim());
+if (menuHasItems || hasMenuLink) {
+  document.getElementById("menu-section").style.display = "block";
+  let html = "";
+  if (hasMenuLink) {
+    html += `<a href="${biz.menuLink}" target="_blank" rel="noopener" class="btn btn-gold" style="margin-bottom:22px">${t('detail.fullMenu')} ↗</a>`;
+  }
+  if (menuHasItems) {
+    const cats = getMenuCategories(biz.cat);
+    html += cats.map(cat => {
+      const items = (biz.menu || []).filter(m => m.category === cat && m.available);
+      if (!items.length) return "";
+      return `
+        <div class="menu-cat-block">
+          <h4>${cat}</h4>
+          ${items.map(m => `
+            <div class="menu-pub-item">
+              <div>
+                <div class="name">${m.name}</div>
+                ${m.desc ? `<div class="desc">${m.desc}</div>` : ""}
+              </div>
+              <div class="price">${m.price>0 ? m.price+' ₼' : t('detail.free')}</div>
+            </div>`).join("")}
+        </div>`;
+    }).join("");
+  }
+  document.getElementById("menu-cats").innerHTML = html;
+}
+
+/* min date = today */
+const dateInput = document.getElementById("bk-date");
+dateInput.min = new Date().toISOString().split("T")[0];
+
+/* time slots, some randomly "taken" for realism */
+const ALL_SLOTS = ["10:00","11:00","12:30","14:00","15:30","17:00","18:30","20:00"];
+const slotsWrap = document.getElementById("bk-slots");
+let chosenSlot = null;
+function renderSlots(){
+  slotsWrap.innerHTML = ALL_SLOTS.map(t => {
+    const taken = (t.charCodeAt(0) + biz.id.length) % 5 === 0;
+    return `<div class="slot ${taken?'taken':''}" data-t="${t}">${t}</div>`;
+  }).join("");
+  slotsWrap.querySelectorAll(".slot:not(.taken)").forEach(el => {
+    el.addEventListener("click", () => {
+      slotsWrap.querySelectorAll(".slot").forEach(s=>s.classList.remove("active"));
+      el.classList.add("active");
+      chosenSlot = el.dataset.t;
+      updateSummary();
+    });
+  });
+}
+renderSlots();
+dateInput.addEventListener("change", () => { chosenSlot = null; renderSlots(); updateSummary(); });
+
+function updateSummary(){
+  const svcIdx = svcSelect.value;
+  const summary = document.getElementById("bk-summary");
+  const submitBtn = document.getElementById("bk-submit");
+  if (svcIdx === "" || !dateInput.value || !chosenSlot) {
+    summary.style.display = "none";
+    submitBtn.disabled = true;
+    return;
+  }
+  const s = biz.services[svcIdx];
+  document.getElementById("sum-svc").textContent = s.name;
+  document.getElementById("sum-time").textContent = `${dateInput.value} · ${chosenSlot}`;
+  document.getElementById("sum-price").textContent = s.price>0 ? s.price+' ₼' : t('detail.free');
+  summary.style.display = "block";
+  submitBtn.disabled = false;
+}
+svcSelect.addEventListener("change", updateSummary);
+
+document.getElementById("bk-submit").addEventListener("click", () => {
+  const name = document.getElementById("bk-name").value.trim();
+  const phone = document.getElementById("bk-phone").value.trim();
+  if (!name || !phone) { showToast("Zəhmət olmasa ad və telefon nömrənizi daxil edin."); return; }
+  const svc = biz.services[svcSelect.value];
+  NEVA_DB.addReservation({
+    bizId: biz.id, bizName: biz.name, customerName: name, phone,
+    serviceName: svc.name, price: svc.price, date: dateInput.value, time: chosenSlot,
+    customerId: loggedCustomer ? loggedCustomer.id : null,
+  });
+  showToast(`Rezervasiya sorğunuz göndərildi — ${biz.name} təsdiqləyəcək.`);
+  document.getElementById("bk-submit").textContent = "Sorğu göndərildi ✓";
+  document.getElementById("bk-submit").disabled = true;
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="az">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FAQ — Neva</title>
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <script>(function () { try { var t = localStorage.getItem('neva_theme'); if (!t) { t = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'; } document.documentElement.setAttribute('data-theme', t); } catch (e) { } })();</script>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+  <header class="site-header">
+    <div class="nav">
+      <a href="index.html" class="logo">
+        <span class="logo-icon" data-neva-logo="34"></span>
+        <span class="logo-word">NEVA</span>
+      </a>
+      <nav class="nav-links">
+        <a href="index.html" data-i18n="nav.home">Ana səhifə</a>
+        <a href="services.html" data-i18n="nav.services">Xidmətlər</a>
+        <a href="about.html" data-i18n="nav.about">Haqqımızda</a>
+        <a href="faq.html" data-i18n="nav.faq">FAQ</a>
+        <a href="contact.html" data-i18n="nav.contact">Əlaqə</a>
+        <div class="nav-extra">
+          <a href="admin-login.html" data-i18n="nav.bizpanel">Biznes Paneli</a>
+          <a href="customer-login.html" class="js-login-link" data-i18n="nav.login">Daxil ol</a>
+          <div class="lang-switch lang-switch-mobile"></div>
+        </div>
+      </nav>
+      <div class="nav-cta">
+        <div class="lang-switch"></div>
+        <button class="theme-toggle" type="button" aria-label="Tema deyisdir" title="Tema deyisdir"></button>
+        <a href="admin-login.html" class="btn btn-ghost btn-sm" style="border-color:transparent;color:var(--ink-muted)"
+          data-i18n="nav.bizpanel">Biznes Paneli</a>
+        <a href="customer-login.html" id="nav-login-link" class="btn btn-ghost btn-sm" data-i18n="nav.login">Daxil
+          ol</a>
+        <a href="services.html" class="btn btn-primary btn-sm" data-i18n="nav.book">Rezerv et</a>
+      </div>
+      <button class="burger" aria-label="Menyu"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <section class="section" style="padding-bottom:0">
+    <div class="container" style="max-width:760px">
+      <div class="eyebrow" data-i18n="faq.eyebrow">Tez-tez verilən suallar</div>
+      <h1 data-i18n="faq.title">Sənə kömək edə bilərik</h1>
+      <p>Rezervasiya, ödəniş və tərəfdaşlıq haqqında ən çox verilən suallara cavab tapdıq. Başqa sualın varsa, bizimlə
+        əlaqə saxla.</p>
+
+      <div class="faq-cats">
+        <button class="filter-chip active" data-cat="all" data-i18n="faq.catAll">Hamısı</button>
+        <button class="filter-chip" data-cat="booking" data-i18n="faq.catBooking">Rezervasiya</button>
+        <button class="filter-chip" data-cat="payment" data-i18n="faq.catPayment">Ödəniş</button>
+        <button class="filter-chip" data-cat="partner" data-i18n="faq.catPartner">Tərəfdaşlıq</button>
+        <button class="filter-chip" data-cat="account" data-i18n="faq.catAccount">Hesab</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="container" style="max-width:760px;padding-bottom:80px">
+    <div id="faq-wrap">
+      <div class="faq-item" data-cat="booking">
+        <div class="faq-q"><span>Neva-da necə rezervasiya edə bilərəm?</span><span class="plus"></span></div>
+        <div class="faq-a">
+          <p>Xidmətlər səhifəsində kateqoriya seç, xəritədə sənə ən yaxın olanı tap, biznesin profilinə keç, xidməti,
+            tarixi və saatı seçib formu doldur — rezervasiyan anında təsdiqlənir.</p>
+        </div>
+      </div>
+      <div class="faq-item" data-cat="booking">
+        <div class="faq-q"><span>Rezervasiyamı ləğv edə və ya dəyişə bilərəmmi?</span><span class="plus"></span></div>
+        <div class="faq-a">
+          <p>Bəli. Görüş vaxtına ən azı 3 saat qalanadək rezervasiyanı hesabından pulsuz ləğv edə və ya yeni tarixə
+            köçürə bilərsən.</p>
+        </div>
+      </div>
+      <div class="faq-item" data-cat="booking">
+        <div class="faq-q"><span>Bir neçə şəxs üçün eyni anda rezerv etmək olarmı?</span><span class="plus"></span>
+        </div>
+        <div class="faq-a">
+          <p>Restoran və kafelərdə masa tutarkən nəfər sayını seçə bilərsən; salon xidmətlərində isə hər nəfər üçün
+            ayrıca rezervasiya tələb olunur.</p>
+        </div>
+      </div>
+      <div class="faq-item" data-cat="payment">
+        <div class="faq-q"><span>Ödənişi harada edirəm?</span><span class="plus"></span></div>
+        <div class="faq-a">
+          <p>Bəzi xidmətlərdə yerində, bəzilərində isə platforma üzərindən kartla ödəniş mümkündür. Bu, hər biznesin
+            profilində qeyd olunur.</p>
+        </div>
+      </div>
+      <div class="faq-item" data-cat="payment">
+        <div class="faq-q"><span>Rezervasiya üçün əvvəlcədən ödəniş tələb olunurmu?</span><span class="plus"></span>
+        </div>
+        <div class="faq-a">
+          <p>Xeyr. Neva üzərindən rezervasiya etmək həmişə pulsuzdur — ödəniş yalnız aldığın xidmətin özünə görədir və
+            birbaşa biznesə edilir.</p>
+        </div>
+      </div>
+      <div class="faq-item" data-cat="partner">
+        <div class="faq-q"><span>Öz biznesimi Neva-ya necə əlavə edərəm?</span><span class="plus"></span></div>
+        <div class="faq-a">
+          <p>Əlaqə səhifəsindəki formu doldur, komandamız 24 saat ərzində səninlə əlaqə saxlayıb profilini quracaq.</p>
+        </div>
+      </div>
+      <div class="faq-item" data-cat="partner">
+        <div class="faq-q"><span>Tərəfdaşlıq üçün hansı sahələr uyğundur?</span><span class="plus"></span></div>
+        <div class="faq-a">
+          <p>Hazırda gözəllik salonları, restoran və kafeləri qəbul edirik. Yeni sahələr tezliklə əlavə olunacaq.</p>
+        </div>
+      </div>
+      <div class="faq-item" data-cat="account">
+        <div class="faq-q"><span>Hesab yaratmadan rezervasiya edə bilərəmmi?</span><span class="plus"></span></div>
+        <div class="faq-a">
+          <p>Bəli, qonaq olaraq rezerv edə bilərsən. Hesab yaratmaqla isə rezervasiya tarixçəni izləyə və daha sürətli
+            rezervasiya edə bilərsən.</p>
+        </div>
+      </div>
+      <div class="faq-item" data-cat="account">
+        <div class="faq-q"><span>Şifrəmi unutmuşam, nə etməliyəm?</span><span class="plus"></span></div>
+        <div class="faq-a">
+          <p>Daxil ol səhifəsindəki "Şifrəni unutdum?" linkinə klik et. Bu, demo versiyada real e-poçt göndərmir —
+            birbaşa <a href="contact.html">dəstək komandamızla</a> əlaqə saxlamağını göstərir.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="cta-band fade-up" style="margin-top:56px">
+      <div class="eyebrow" style="justify-content:center" data-i18n="faq.ctaEyebrow">Sualın qaldımı?</div>
+      <h2 data-i18n="faq.ctaTitle">Komandamız sənə kömək etməyə hazırdır</h2>
+      <a href="contact.html" class="btn btn-gold" data-i18n="faq.ctaButton">Bizimlə əlaqə saxla</a>
+    </div>
+  </section>
+
+<footer class="site-footer">
+  <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-logo">
+            <a href="index.html" class="logo">
+              <span class="logo-icon" data-neva-logo="34"></span>
+              <span class="logo-word">NEVA</span>
+            </a>
+          </div>
+          <p style="max-width:260px" data-i18n="footer.tagline">Naviqasiya. Kəşf. Görüş. Rezervasiya. — bir nöqtədə
+            birləşən şəhər həyatı.</p>
+        </div>
+        <div>
+          <h5 data-i18n="footer.services">Xidmətlər</h5>
+          <ul>
+            <li><a href="services.html?cat=salon" data-i18n="footer.beauty">Gözəllik salonları</a></li>
+            <li><a href="services.html?cat=restaurant" data-i18n="footer.restaurants">Restoranlar</a></li>
+            <li><a href="services.html?cat=cafe" data-i18n="footer.cafes">Kafelər</a></li>
+          </ul>
+        </div>
+        <div>
+          <h5 data-i18n="footer.company">Şirkət</h5>
+          <ul>
+            <li><a href="about.html" data-i18n="nav.about">Haqqımızda</a></li>
+            <li><a href="faq.html" data-i18n="nav.faq">FAQ</a></li>
+            <li><a href="contact.html" data-i18n="nav.contact">Əlaqə</a></li>
+          </ul>
+        </div>
+        <div>
+          <h5 data-i18n="footer.contact">Əlaqə</h5>
+          <ul>
+            <li>hello@neva.az</li>
+            <li>+994 12 555 04 04</li>
+            <li>Bakı, Azərbaycan</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span data-i18n="footer.rights">© 2026 Neva. Bütün hüquqlar qorunur.</span>
+        <span data-i18n="footer.short">Naviqasiya · Kəşf · Görüş · Rezervasiya</span>
+      </div>
+    </div>
+</footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/i18n.js"></script>
+  <script src="js/logo.js"></script>
+  <script src="js/main.js"></script>
+</body>
+
+</html>

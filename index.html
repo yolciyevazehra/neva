@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="az">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Neva — Naviqasiya. Kəşf. Görüş. Rezervasiya.</title>
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <script>(function () { try { var t = localStorage.getItem('neva_theme'); if (!t) { t = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'; } document.documentElement.setAttribute('data-theme', t); } catch (e) { } })();</script>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+  <header class="site-header">
+    <div class="nav">
+      <a href="index.html" class="logo">
+        <span class="logo-icon" data-neva-logo="34"></span>
+        <span class="logo-word">NEVA</span>
+      </a>
+      <nav class="nav-links">
+        <a href="index.html" data-i18n="nav.home">Ana səhifə</a>
+        <a href="services.html" data-i18n="nav.services">Xidmətlər</a>
+        <a href="about.html" data-i18n="nav.about">Haqqımızda</a>
+        <a href="faq.html" data-i18n="nav.faq">FAQ</a>
+        <a href="contact.html" data-i18n="nav.contact">Əlaqə</a>
+        <div class="nav-extra">
+          <a href="admin-login.html" data-i18n="nav.bizpanel">Biznes Paneli</a>
+          <a href="customer-login.html" class="js-login-link" data-i18n="nav.login">Daxil ol</a>
+          <div class="lang-switch lang-switch-mobile"></div>
+        </div>
+      </nav>
+      <div class="nav-cta">
+        <div class="lang-switch"></div>
+        <button class="theme-toggle" type="button" aria-label="Tema dəyişdir" title="Tema dəyişdir"></button>
+        <a href="admin-login.html" class="btn btn-ghost btn-sm" style="border-color:transparent;color:var(--ink-muted)"
+          data-i18n="nav.bizpanel">Biznes Paneli</a>
+        <a href="customer-login.html" id="nav-login-link" class="btn btn-ghost btn-sm" data-i18n="nav.login">Daxil
+          ol</a>
+        <a href="services.html" class="btn btn-primary btn-sm" data-i18n="nav.book">Rezerv et</a>
+      </div>
+      <button class="burger" aria-label="Menyu"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <div class="eyebrow" data-i18n="home.eyebrow">Bakının rezervasiya platforması</div>
+        <h1 data-i18n-html="home.title.html">Bir nöqtədən <em>hər şeyi</em> tap, kəşf et, rezerv et.</h1>
+        <p class="lead" data-i18n="home.lead">Neva — gözəllik salonlarını, restoranları, kafeləri və idman mərkəzlərini
+          xəritədə tapıb, sənə ən yaxın olanında bir kliklə rezervasiya etməyin ən sadə yolu.</p>
+        <div class="hero-actions">
+          <a href="services.html" class="btn btn-gold" data-i18n="home.cta1">Xidmətlərə bax</a>
+          <a href="about.html" class="btn btn-ghost" data-i18n="home.cta2">Neva necə işləyir?</a>
+        </div>
+        <div class="trust-row">
+          <div class="stat"><b>140+</b><span data-i18n="home.stat1">Tərəfdaş biznes</span></div>
+          <div class="stat"><b>12,400+</b><span data-i18n="home.stat2">Rezervasiya</span></div>
+          <div class="stat"><b>4.8 ★</b><span data-i18n="home.stat3">Orta reytinq</span></div>
+        </div>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <svg viewBox="0 0 400 400" width="100%">
+          <circle cx="90" cy="70" r="7" fill="#8B93C4" />
+          <circle cx="300" cy="60" r="7" fill="#D4A574" />
+          <circle cx="330" cy="230" r="7" fill="#1B2438" />
+          <circle cx="140" cy="330" r="7" fill="#8B93C4" />
+          <circle cx="60" cy="230" r="7" fill="#D4A574" />
+          <g stroke="#C7CCE6" stroke-width="1.4" stroke-dasharray="2 7" fill="none">
+            <line x1="90" y1="70" x2="300" y2="60" />
+            <line x1="300" y1="60" x2="330" y2="230" />
+            <line x1="330" y1="230" x2="140" y2="330" />
+            <line x1="140" y1="330" x2="60" y2="230" />
+            <line x1="60" y1="230" x2="90" y2="70" />
+            <line x1="90" y1="70" x2="330" y2="230" />
+          </g>
+          <path d="M180 150 h60 M210 150 v90 M195 195 h30 M195 285 l15 -30 l15 30" stroke="#1B2438" stroke-width="7"
+            fill="none" stroke-linecap="round" />
+        </svg>
+      </div>
+    </div>
+
+    <div class="container">
+      <form class="search-panel" id="home-search-form">
+        <div class="search-field">
+          <label for="hs-category" data-i18n="search.category">Kateqoriya</label>
+          <select id="hs-category">
+            <option value="" data-i18n="search.categoryAll">Hamısı</option>
+            <option value="salon">Gözəllik salonu</option>
+            <option value="restaurant">Restoran</option>
+            <option value="cafe">Kafe</option>
+          </select>
+        </div>
+        <div class="search-field">
+          <label for="hs-location" data-i18n="search.location">Ərazi</label>
+          <input id="hs-location" type="text" placeholder="Nəsimi, Yasamal..."
+            data-i18n-placeholder="search.locationPh">
+        </div>
+        <div class="search-field">
+          <label for="hs-date" data-i18n="search.date">Tarix</label>
+          <input id="hs-date" type="date">
+        </div>
+        <button type="submit" class="btn btn-gold" data-i18n="search.button">Axtar</button>
+      </form>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow" data-i18n="cats.eyebrow">Kateqoriyalar</div>
+          <h2 class="mt-0" data-i18n="cats.title">Nə axtarırsan?</h2>
+        </div>
+        <p data-i18n="cats.desc">Getdikcə daha çox sahə əlavə olunur — indi 3 kateqoriyada 140-dan çox tərəfdaşımız var.
+        </p>
+      </div>
+      <div class="cat-grid" id="home-cat-grid"></div>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:0">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow" data-i18n="steps.eyebrow">Necə işləyir</div>
+          <h2 class="mt-0" data-i18n="steps.title">Dörd addımda rezervasiya</h2>
+        </div>
+      </div>
+      <div class="steps fade-up">
+        <div class="step">
+          <div class="node">N</div>
+          <h4 data-i18n="steps.1.h">Naviqasiya et</h4>
+          <p data-i18n="steps.1.p">Xəritədə özünə ən yaxın yerləri tap.</p>
+        </div>
+        <div class="step">
+          <div class="node">E</div>
+          <h4 data-i18n="steps.2.h">Kəşf et</h4>
+          <p data-i18n="steps.2.p">Xidmətlərə, qiymətlərə və reytinqlərə bax.</p>
+        </div>
+        <div class="step">
+          <div class="node">V</div>
+          <h4 data-i18n="steps.3.h">Gör</h4>
+          <p data-i18n="steps.3.p">Şəkillər və rəylərlə əmin ol.</p>
+        </div>
+        <div class="step">
+          <div class="node">A</div>
+          <h4 data-i18n="steps.4.h">Rezerv et</h4>
+          <p data-i18n="steps.4.p">Tarix və saat seç, bir kliklə təsdiqlə.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:0">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">Populyar</div>
+          <h2 class="mt-0" data-i18n="popular.title">Bu həftə çox axtarılanlar</h2>
+        </div>
+        <a href="services.html" class="btn btn-ghost btn-sm" data-i18n="popular.viewall">Hamısına bax</a>
+      </div>
+      <div class="biz-list" id="home-popular-list"></div>
+    </div>
+  </section>
+
+  <section class="container">
+    <div class="cta-band fade-up">
+      <div class="eyebrow" style="justify-content:center" data-i18n="ctabiz.eyebrow">Bizneslər üçün</div>
+      <h2 data-i18n="ctabiz.title">Salonunuzu, restoranınızı və ya zalınızı Neva-ya əlavə edin</h2>
+      <p data-i18n="ctabiz.desc">Rezervasiyalarınızı tək platformadan idarə edin, yeni müştərilər qazanın.</p>
+      <a href="admin-login.html" class="btn btn-gold" data-i18n="ctabiz.button">Biznes Panelinə keç</a>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-logo">
+            <a href="index.html" class="logo">
+              <span class="logo-icon" data-neva-logo="34"></span>
+              <span class="logo-word">NEVA</span>
+            </a>
+          </div>
+          <p style="max-width:260px" data-i18n="footer.tagline">Naviqasiya. Kəşf. Görüş. Rezervasiya. — bir nöqtədə
+            birləşən şəhər həyatı.</p>
+        </div>
+        <div>
+          <h5 data-i18n="footer.services">Xidmətlər</h5>
+          <ul>
+            <li><a href="services.html?cat=salon" data-i18n="footer.beauty">Gözəllik salonları</a></li>
+            <li><a href="services.html?cat=restaurant" data-i18n="footer.restaurants">Restoranlar</a></li>
+            <li><a href="services.html?cat=cafe" data-i18n="footer.cafes">Kafelər</a></li>
+          </ul>
+        </div>
+        <div>
+          <h5 data-i18n="footer.company">Şirkət</h5>
+          <ul>
+            <li><a href="about.html" data-i18n="nav.about">Haqqımızda</a></li>
+            <li><a href="faq.html" data-i18n="nav.faq">FAQ</a></li>
+            <li><a href="contact.html" data-i18n="nav.contact">Əlaqə</a></li>
+          </ul>
+        </div>
+        <div>
+          <h5 data-i18n="footer.contact">Əlaqə</h5>
+          <ul>
+            <li>hello@neva.az</li>
+            <li>+994 12 555 04 04</li>
+            <li>Bakı, Azərbaycan</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span data-i18n="footer.rights">© 2026 Neva. Bütün hüquqlar qorunur.</span>
+        <span data-i18n="footer.short">Naviqasiya · Kəşf · Görüş · Rezervasiya</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/i18n.js"></script>
+  <script src="js/logo.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    const catGrid = document.getElementById("home-cat-grid");
+    const popularIds = ["b1", "r1", "c1", "f2"];
+
+    function renderHomeDynamic() {
+      catGrid.innerHTML = CATEGORIES.map(c => `
+      <a class="cat-card fade-up in" href="services.html?cat=${c.id}">
+        <div class="icon">${ICONS[c.icon]}</div>
+        <h3>${c.label}</h3>
+        <span class="count">${c.count} ${t('cats.partners')}</span>
+      </a>`).join("");
+
+      document.getElementById("home-popular-list").innerHTML = popularIds.map(id => {
+        const b = getBusiness(id);
+        return `
+      <a class="biz-card fade-up in" href="business.html?id=${b.id}">
+        <img class="thumb" src="${b.img}" alt="${b.name}">
+        <div>
+          <h3>${b.name}</h3>
+          <div class="biz-meta">
+            <span>${ICONS.pin} ${b.area}</span>
+            <span>${ICONS.star} <span class="rating">${b.rating}</span> (${b.reviews})</span>
+            <span>${b.price}</span>
+          </div>
+          <div class="tag-row">${b.tags.map(tag => `<span class="tag">${tag}</span>`).join("")}</div>
+        </div>
+        <div><span class="btn btn-ghost btn-sm">${t('biz.view')}</span></div>
+      </a>`;
+      }).join("");
+    }
+    renderHomeDynamic();
+    document.addEventListener("neva-lang-changed", renderHomeDynamic);
+  </script>
+</body>
+
+</html>
