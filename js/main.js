@@ -19,9 +19,59 @@ function getNevaTheme() {
 
 document.addEventListener("DOMContentLoaded", () => {
   /* mobile nav */
-  const burger = document.querySelector(".burger");
-  const navLinks = document.querySelector(".nav-links");
-  if (burger) burger.addEventListener("click", () => navLinks.classList.toggle("open"));
+  const header = document.querySelector(".site-header");
+const burger = document.querySelector(".burger");
+const navLinks = document.querySelector(".nav-links");
+if (header && burger && navLinks) {
+  const mq = window.matchMedia("(max-width: 1060px)");
+  const isOpen = () => navLinks.classList.contains("open");
+
+  /* menyu paneli header-in altından başlayır */
+  const syncHeaderHeight = () =>
+    document.documentElement.style.setProperty("--header-h", header.offsetHeight + "px");
+
+  const setMenu = (open, returnFocus) => {
+    navLinks.classList.toggle("open", open);
+    burger.classList.toggle("is-open", open);
+    burger.setAttribute("aria-expanded", String(open));
+    document.documentElement.classList.toggle("nav-open", open);
+    if (open) syncHeaderHeight();
+    if (!open && returnFocus) burger.focus();
+  };
+
+  burger.addEventListener("click", () => setMenu(!isOpen()));
+
+  /* menyudakı link/düyməyə toxunanda bağlanır (dil düymələri istisna) */
+  navLinks.addEventListener("click", (e) => {
+    if (e.target.closest(".lang-switch")) return;
+    if (e.target.closest("a, button")) setMenu(false);
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (!isOpen()) return;
+    if (e.key === "Escape") { setMenu(false, true); return; }
+    if (e.key === "Tab") {
+      /* fokus header + açıq menyu daxilində qalır */
+      const items = [
+        header.querySelector(".logo"),
+        header.querySelector(".theme-toggle"),
+        burger,
+        ...navLinks.querySelectorAll("a[href], button")
+      ].filter(Boolean);
+      const i = items.indexOf(document.activeElement);
+      const next = e.shiftKey ? (i <= 0 ? items.length - 1 : i - 1) : (i === items.length - 1 ? 0 : i + 1);
+      e.preventDefault();
+      items[next].focus();
+    }
+  });
+
+  /* ekran genişlənəndə (rotate/resize) menyu sıfırlanır */
+  const onBreakpoint = () => { if (!mq.matches) setMenu(false); };
+  if (mq.addEventListener) mq.addEventListener("change", onBreakpoint);
+  else mq.addListener(onBreakpoint);
+  window.addEventListener("resize", syncHeaderHeight);
+  syncHeaderHeight();
+}
 
   /* theme toggle button(s) */
   document.querySelectorAll(".theme-toggle").forEach(btn => {
